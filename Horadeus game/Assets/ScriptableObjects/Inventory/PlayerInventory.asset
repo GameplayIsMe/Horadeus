@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   items:
   - type: 1
-    count: 445
+    count: 30
   itemsInfo: []
   OnInventoryChanged: {fileID: 11400000, guid: f5d2e2b263f49c542ad3c177dc4bf7b1, type: 2}

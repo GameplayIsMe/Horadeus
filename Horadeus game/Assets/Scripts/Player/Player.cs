@@ -12,6 +12,10 @@ public class Player : MonoBehaviour {
 
     private ItemData arrowItem;
 
+    private bool DebugMenu = false;
+
+    private bool InfiniteArrows = false;
+
     [HideInInspector] public HCamera playerCamera;
 
     public void Init(HCamera cam) {
@@ -37,8 +41,39 @@ public class Player : MonoBehaviour {
 
         SomeCursorCheck();
 
+        // Debug Menu Start
+        // will allow shooting with 0 Arrows
+        if (Input.GetKeyDown("0") && DebugMenu == false)
+        {
+            GameUI.inst.EnableDebugMenu(true);
+            Debug.Log("DeBug Menu Activated");
+            DebugMenu = true;
+        }
+
+        else if (Input.GetKeyDown("/") && InfiniteArrows == false && DebugMenu)
+        {
+            Debug.Log("Infin. Arrow Activated");
+            InfiniteArrows = true;
+        }
+        else if (Input.GetKeyDown("/") && InfiniteArrows && DebugMenu)
+        {
+            Debug.Log("Infin. Arrow Deactivated");
+
+            InfiniteArrows = false;
+        }
+
+        else if (Input.GetKeyDown("0") && DebugMenu)
+        {
+            Debug.Log("DeBug Menu Deactivated");
+            GameUI.inst.EnableDebugMenu(false);
+            DebugMenu = false;
+        }
+        // Debug Menu End
+
         if (currentWeapon != null) {
-            if (arrowItem.count > 0)
+
+            
+            if (arrowItem.count > 0 || InfiniteArrows)
             {
                 if (Input.GetMouseButtonDown(0))
                 {
@@ -50,8 +85,11 @@ public class Player : MonoBehaviour {
             if (Input.GetMouseButton(0))
             {
                 currentWeapon.UseHold();
-
                 playerCamera.SetZoomPercent(currentWeapon.charge / currentWeapon.maxChargeTime);
+                if (arrowItem.count <= 0 && !InfiniteArrows)
+                {
+                    GameUI.inst.EnableCantShoot(true);
+                }
             }
 
             if (Input.GetMouseButtonUp(0))
@@ -59,6 +97,7 @@ public class Player : MonoBehaviour {
                 currentWeapon.UseRelease();
                 playerCamera.SetZoomPercent(0f);
                 GameUI.inst.EnableCrosshair(false);
+                GameUI.inst.EnableCantShoot(false);
                 inventory.TakeItem(arrowItem, 1);
             }
         }

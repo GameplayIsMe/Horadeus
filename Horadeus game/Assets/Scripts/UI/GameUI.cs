@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,7 +7,13 @@ public class GameUI : MonoBehaviour
     public static GameUI inst;
 
     public TextMeshProUGUI arrowCountText;
-    public Image crosshairImage;
+
+    [SerializeField]
+    private Image crosshairImage;
+    [SerializeField]
+    private Image CantShoot;
+    [SerializeField]
+    private Image DebugMenu;
 
     public void Init() {
         inst = this;
@@ -26,4 +30,13 @@ public class GameUI : MonoBehaviour
         crosshairImage.enabled = enable;
     }
 
+    public void EnableCantShoot(bool enable)
+    {
+        CantShoot.enabled = enable;
+    }
+
+    public void EnableDebugMenu(bool enable)
+    {
+        DebugMenu.enabled = enable;
+    }
 }

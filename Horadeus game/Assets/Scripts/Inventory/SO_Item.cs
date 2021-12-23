@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Runtime.Serialization;
 using UnityEngine;
 
@@ -42,7 +40,8 @@ public class GD_InventoryItem : GD
 
     public void RestoreInventory(SO_PlayerInventory playerInventory)
     {
-
+        playerInventory.items.Clear();
+        playerInventory.OnInventoryRestored();
     }
 
     public GD_InventoryItem(SerializationInfo info, StreamingContext sc) : base(info, sc)
@@ -61,4 +60,7 @@ public class GD_InventoryItem : GD
     {
 
     }
+
+    
+
 }

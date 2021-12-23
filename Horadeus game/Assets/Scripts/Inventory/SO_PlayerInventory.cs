@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using UnityEngine;
@@ -40,7 +39,7 @@ public class SO_PlayerInventory : ScriptableObject
 public class ItemData
 {
     public ItemType type;
-    public int count;
+    public int count = 30;
 }
 
 [System.Serializable]
